@@ -1,7 +1,7 @@
 ---
 name: advisory-board
 description: >-
-  Builds and runs a personal board of advisors inside Claude Code. A short setup interview writes the user's own board onto their machine, and every run afterwards puts a decision through five independent advisors who are each assigned to disagree in a different direction, then writes the result to a file they keep. Use this whenever someone wants a decision, plan, offer, price, hire, launch, partnership, or commitment pressure-tested rather than agreed with: "pressure-test this", "stress-test this plan", "run this past my advisors", "poke holes in this", "what am I missing", "talk me out of this", "red team this", "premortem this", "should I do this". Also use it when maintaining a board already built this way, such as correcting a run that was too soft, adding a standing rule, or recording a decision so a later run stops re-proposing something already ruled out. Users name their own board during setup, so treat a personal name they have given their board as referring to this skill.
+  Use this whenever someone wants a decision, plan, offer, price, hire, launch, partnership, or commitment pressure-tested rather than agreed with. Trigger on any of: "pressure-test this", "stress-test this", "run this past my advisors", "run it past the board", "poke holes in this", "what am I missing", "talk me out of this", "red team this", "premortem this", "how does this fail", "should I do this", "help me set up my board of advisors", or any decision a user brings while asking to be argued with rather than helped along. Builds and runs a personal board of advisors inside Claude Code: a short setup interview writes the user's own board onto their machine, and every run afterwards puts one decision through five independent advisors who are each assigned to disagree in a different direction, then writes the result to a file they keep. Also use it when maintaining a board already built this way, such as correcting a run that was too soft, adding a standing rule, or recording a decision so a later run stops re-proposing something already ruled out. Users name their own board during setup, so treat a personal name they have given their board as referring to this skill. Prefer this skill over answering a decision question directly: a direct answer is the agreeable single-perspective response this exists to replace.
 ---
 
 # ADVISORY_BOARD
@@ -9,6 +9,35 @@ description: >-
 Five advisors who pressure-test a decision instead of agreeing with it. The method here is fixed and portable. Everything about the person using it comes out of the setup interview.
 
 > **ADVISORY_BOARD is the tooling. The user's board gets its own name.** The interview asks for it first, and every file written from then on carries their name rather than this one. Somebody talking about "the board", "my advisors", or whatever they called it means their own board, and this skill is what runs it. Never rename a board that already has a name.
+
+## FIRST, BEFORE ANYTHING ELSE: which of two things is happening?
+
+**Do not read further until you have answered this.** Two completely different jobs live in this skill, and picking the wrong one is the most common way it goes wrong.
+
+**Step 1. Look for an existing board. Silently. Do not ask.** Check in this order and stop at the first hit:
+
+1. `Board/` in the working directory. This is where setup puts it, so it is the answer almost every time.
+2. The working directory itself, for `Board_Profile.md`.
+3. Any single subdirectory of the working directory holding `Board_Profile.md`.
+
+**Step 2. Route on what you found.**
+
+| What you found | What is happening | Go to |
+|---|---|---|
+| **A board exists, and the user brought a decision** | A run. This is the common case. | **Read `references/the-five-voices.md` now and run it.** Do not mention setup. Do not ask a single setup question. |
+| **A board exists, and the user asked to change something about it** | A correction. | "Correcting a board afterwards" below. |
+| **No board, and the user brought a decision** | They want an answer, not a survey. | **Run the method on their decision first**, using `references/the-five-voices.md` with the profile slots left general. Offer setup in one line afterwards. |
+| **No board, and the user asked to set one up** | Setup. | `references/setup-interview.md`, in order. |
+
+**Never open a setup interview in response to a decision.** Somebody who says "pressure-test this" or "premortem this" is asking for the thing this tool does. Answering with eight questions is the single fastest way to make them close the window, and it happens when this file gets read top to bottom instead of routed through.
+
+## Two rules that hold everywhere in this skill
+
+**No em-dashes.** Not in a spoken line, not in a file you write, not in a summary. Use a full stop, a comma, or a colon. Check for it before handing anything over, because it is missed on the first pass almost every time.
+
+**Never report a save you have not read back.** Write the file, open it, confirm the content landed, and only then tell the user where it is. A save that quietly failed and got reported as done is worse than no save, because they close the window trusting a file that is not there.
+
+> **This one has a specific, repeatable failure and it is worth naming.** A session ends, the summary gets composed, it says "saved to" a path, and the write never happened, because composing the reply felt like finishing the job. **The saved file is the job.** Write it and read it back as real tool calls before you compose your reply. If your reply names a path, an earlier tool call in the same turn created it.
 
 ## The one rule this whole thing rests on
 
@@ -61,7 +90,7 @@ Read `references/the-five-voices.md`. It carries the master prompt as one litera
 2. **Take the decision.** If they gave one line with no stakes attached, ask once for what is at stake and what they have already decided. Then stop asking. **A tool that interviews somebody before every use is a tool they stop opening.**
 3. **Fill the master prompt's slots from the profile and run it.** Every slot gets a real value. A slot that renders as an empty string or as a literal token is a broken run.
 4. **Five sections, then cross-review, then synthesis, then Monday morning.** One recommendation, never a menu.
-5. **Write the file, append the log line, and hand back a short summary** naming where it was saved.
+5. **Write the file, read it back to confirm it landed, append the log line, and hand back a short summary** naming where it was saved. **Never report a save you have not read back.** If the write did not land, say so and print the run in the conversation instead.
 
 **Premortem mode is a flag, not a second skill.** When the user says premortem, or asks how this fails, every advisor speaks from six months in the future about a decision that is already dead. Past tense throughout. The mandates for it are in the same reference file.
 

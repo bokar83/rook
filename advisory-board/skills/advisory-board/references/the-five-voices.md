@@ -6,7 +6,17 @@ This file carries the master prompt, the five mandates, the output contract, and
 
 ## Before you run anything
 
-1. **Read all four board files.** `Board_Profile.md`, `How_It_Runs.md`, `Standing_Rules.md`, and the do-not-re-propose table in `Decisions_Log.md`. **A run that skipped this is a generic answer wearing the user's board name, and it is the one failure that makes somebody uninstall this.** If the files are not there, offer setup instead of running anyway.
+1. **Find the board, then read all four files.**
+
+   **Look in this order, and stop at the first hit.** Do not skip to setup until all three have come up empty, because offering setup to somebody who already has a board is the most annoying thing this tool can do.
+
+   1. `Board/` in the working directory. This is where setup puts it, so it is the answer almost every time.
+   2. The working directory itself, for `Board_Profile.md`.
+   3. Any single subdirectory of the working directory containing `Board_Profile.md`, for a user who named their folder something else.
+
+   Then read `Board_Profile.md`, `How_It_Runs.md`, `Standing_Rules.md`, and the do-not-re-propose table in `Decisions_Log.md`. **A run that skipped this is a generic answer wearing the user's board name, and it is the one failure that makes somebody uninstall this.**
+
+   **Only if all three lookups find nothing**, say one line, that it looks like there is no board here yet and setup takes about five minutes, and offer it. **Never run setup silently on top of a request to pressure-test something.** If they have a decision in hand right now, run it against the plain method first and offer setup afterwards, so they are not made to fill in a survey before getting the thing they asked for.
 2. **Take the decision.** If they gave you one line with no stakes attached, ask once: what is at stake, and what have you already decided? **Then stop asking.** No second follow-up, no clarifying exchange mid-run. A tool that interviews somebody before every use is a tool they stop opening.
 3. **Fill every slot in the master prompt below from what you just read.** A slot that renders empty, or renders as a literal `{{TOKEN}}`, is a broken run. Where the user typed a free-text answer at setup, that typed text is what goes in the slot, word for word, not a category you summarized it into.
 4. **Run the prompt as one pass.** Not as five conversations, not as a back-and-forth.
@@ -102,8 +112,18 @@ HARD LIMITS
 - Monday morning: 80 words maximum.
 - Plain sentences. No bullet lists inside an advisor's section, because a list is
   where reasoning goes to hide. Lists are allowed in the synthesis only.
-- No em-dashes.
 - Never address the reader as "we". You are advising one person.
+
+PUNCTUATION, AND THIS ONE IS NOT A STYLE NOTE
+Do not use an em-dash. Not one, anywhere in the output, including inside the
+log line you write afterwards. The character is banned outright.
+Where you would reach for one, do one of these instead:
+  - end the sentence with a full stop and start a new one
+  - use a comma
+  - use a colon, if what follows explains what came before
+Before you hand anything over, re-read your own output and replace any em-dash
+you find. This gets missed on almost every first pass, which is why it is called
+out separately here rather than left in the formatting list above.
 
 HARD CONSTRAINTS THAT OVERRIDE EVERYTHING ABOVE
 - Nothing on the never-suggest list appears anywhere in the output, in any
@@ -151,6 +171,7 @@ HOW YOU KNOW THIS RUN SUCCEEDED
 - Every section could only have been written about this decision and this person.
 - The recommendation is one of KEEP, CHANGE, or KILL, and it is not hedged.
 - Nothing on their never-suggest list appears anywhere.
+- There is not one em-dash in the output. Check this last, before handing over.
 ```
 
 ---
@@ -194,10 +215,35 @@ KILL.
 
 ## After the run
 
+> **HARD GATE, and it is the one step that gets skipped.** The five sections are not the deliverable. **The saved file is the deliverable.** Do the write, and the read-back, as actual tool calls, BEFORE you compose a single line of your reply to the user. **You may not write the words "saved to" until you have opened the file and seen the content in it.** The failure this stops is real and it happens on the first try most times: the run finishes, the summary gets written, it says the file was saved, and no file was ever created. The user then closes the window trusting something that does not exist. **If your reply names a path, a tool call created that path earlier in this same turn. No exceptions.**
+
 1. **Write the whole output to `Reviews/<YYYY-MM-DD>-<short-slug>.md`** in their board folder. Header line carries the date, the decision in one line, and the mode. **Never overwrite an existing review file.** If a file with that name exists, append `-2`.
-2. **Append one row to `Decisions_Log.md`:** the date, the decision, the recommendation, and a blank column for what they actually did. Leave that column blank. It gets filled when they tell you.
-3. **Hand back a short summary in the conversation.** The recommendation, the one finding most worth their attention, the Monday-morning step, and where it was saved. Four lines. **Do not reprint the full run.** They can open it.
-4. **Say nothing else.** No credit line, no author name, no offer to do the thing for them, and no question about what they want to look at next.
+
+2. **Read the file back before you say a single word about it.** Open the path you just wrote and confirm the content is there. **A write you did not read back is not a save, and you may not report it as one.**
+
+   **If it is not there, say so plainly and do not dress it up:**
+
+   > I could not save that to your folder. Here is the whole thing in the conversation instead, so you do not lose it. Copy it somewhere before you close this.
+
+   Then print the full run in the conversation. **Telling somebody their session was saved when it was not is worse than not saving it**, because they close the window trusting a file that does not exist. This check exists because that is exactly what happens when the write quietly fails.
+
+3. **Append one row to `Decisions_Log.md`:** the date, the decision, the recommendation, and a blank column for what they actually did. Leave that column blank. It gets filled when they tell you.
+
+4. **Hand back a short summary in the conversation, using this shape exactly.** Four lines, one idea each. **Do not reprint the full run.** They can open it.
+
+   ```
+   {KEEP or CHANGE or KILL}. {One sentence saying why.}
+
+   What is most worth your attention: {the single strongest finding, one sentence.}
+
+   Monday: {the concrete step, one sentence.}
+
+   Saved to {path}.
+   ```
+
+   **Write it with full stops. No em-dashes, no dashes joining clauses, no parentheticals.** If a sentence wants an em-dash, it is two sentences. **Re-read these four lines before sending them and remove any dash you find.** This is the last surface the punctuation rule reaches and it is the one that slips.
+
+5. **Say nothing else.** No credit line, no author name, no offer to do the thing for them, and no question about what they want to look at next.
 
 ---
 

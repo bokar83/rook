@@ -16,6 +16,7 @@
 - **`Say:` blocks are the words to use, close to verbatim. Trim to fit, never expand. A blockquote without `Say:` is a note to you and is never spoken.**
 - **Say it in plain language.** Nothing you say out loud carries a file path, a flag, a setting name, or a system word like "profile", "rubric", "slot", "on disk", or "artifact". Name each thing by what it does for them. These notes are technical. What you say is not.
 - **The author's letter is the one fully verbatim block.** Do not paraphrase it, extend it, or add a line after it. It is signed by a person.
+- **No em-dashes, in anything you say or write.** Use a full stop, a comma, or a colon instead. This covers every spoken line, every file, and every summary, and it gets missed on the first pass unless you check for it deliberately.
 - **Never celebrate.** Somebody opening this is usually about to make a hard call and may already be worried about it. Warm and matter-of-fact, never upbeat about the situation.
 - **Announce nothing you will ask later.** Naming a setting before its question reads as a decision already made.
 
@@ -52,7 +53,7 @@
 
 ## Before you start: is there already a board here?
 
-**Look in the working folder for an existing board before the banner.** Any of `Board_Profile.md`, `How_It_Runs.md`, `Decisions_Log.md`, or `Standing_Rules.md` counts. **None of them means a first run: go straight to the banner and skip this section entirely.**
+**Look for an existing board before the banner, in this order:** `Board/` in the working directory, then the working directory itself, then any single subdirectory containing `Board_Profile.md`. Any of `Board_Profile.md`, `How_It_Runs.md`, `Decisions_Log.md`, or `Standing_Rules.md` counts as a hit. **All three coming up empty means a first run: go straight to the banner and skip this section entirely.**
 
 Only when one exists, stop and ask, because a fresh interview written over a live board destroys every correction they have made since setup.
 
