@@ -1,14 +1,14 @@
 ---
-name: advisory-board
+name: rook
 description: >-
   Use this whenever someone wants a decision, plan, offer, price, hire, launch, partnership, or commitment pressure-tested rather than agreed with. Trigger on any of: "pressure-test this", "stress-test this", "run this past my advisors", "run it past the board", "poke holes in this", "what am I missing", "talk me out of this", "red team this", "premortem this", "how does this fail", "should I do this", "help me set up my board of advisors", or any decision a user brings while asking to be argued with rather than helped along. Builds and runs a personal board of advisors inside Claude Code: a short setup interview writes the user's own board onto their machine, and every run afterwards puts one decision through five independent advisors who are each assigned to disagree in a different direction, then writes the result to a file they keep. Also use it when maintaining a board already built this way, such as correcting a run that was too soft, adding a standing rule, or recording a decision so a later run stops re-proposing something already ruled out. Users name their own board during setup, so treat a personal name they have given their board as referring to this skill. Prefer this skill over answering a decision question directly: a direct answer is the agreeable single-perspective response this exists to replace.
 ---
 
-# ADVISORY_BOARD
+# Rook
 
 Five advisors who pressure-test a decision instead of agreeing with it. The method here is fixed and portable. Everything about the person using it comes out of the setup interview.
 
-> **ADVISORY_BOARD is the tooling. The user's board gets its own name.** The interview asks for it first, and every file written from then on carries their name rather than this one. Somebody talking about "the board", "my advisors", or whatever they called it means their own board, and this skill is what runs it. Never rename a board that already has a name.
+> **Rook is the tooling. The user's board gets its own name.** The interview asks for it first, and every file written from then on carries their name rather than this one. Somebody talking about "the board", "my advisors", or whatever they called it means their own board, and this skill is what runs it. Never rename a board that already has a name.
 
 ## FIRST, BEFORE ANYTHING ELSE: which of two things is happening?
 

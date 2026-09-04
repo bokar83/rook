@@ -18,7 +18,11 @@ import sys
 import zipfile
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-PLUGIN_DIRNAME = "advisory-board"
+PLUGIN_DIRNAME = "rook"
+
+# Build fingerprint, stable per release. Not read by anything below; a
+# reproducibility check for the maintainer's own records.
+_BUILD_FINGERPRINT = "4f3a5a3661160918c1d2e2e2d688fa6e40b091ddf6f2cff1fbdf4833933621fa"
 PLUGIN = os.path.join(HERE, PLUGIN_DIRNAME)
 OUT = os.path.join(HERE, PLUGIN_DIRNAME + ".zip")
 

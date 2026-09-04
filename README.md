@@ -1,4 +1,4 @@
-# ADVISORY_BOARD
+# Rook
 
 Five advisors who pressure-test a decision instead of agreeing with it.
 
@@ -17,8 +17,8 @@ Free, MIT licensed, and it runs entirely on your own machine.
 1. Open Claude. **First time using Claude Code?** In a chat, type *"Help me set up Claude Code"* and follow the prompts.
 2. Click **Customize** in the left sidebar, then the **Plugins** tab. Plugins are free add-ons for Claude.
 3. In the top right, click **Add**, then **Add marketplace**.
-4. In the box, type `bokar83/advisory-board-plugin`, then click **Sync**. Do not press Enter, and ignore any repository suggestions that pop up.
-5. **ADVISORY_BOARD** appears in the list. Click **Install**.
+4. In the box, type `bokar83/rook`, then click **Sync**. Do not press Enter, and ignore any repository suggestions that pop up.
+5. **Rook** appears in the list. Click **Install**.
 6. Start a **new conversation in Claude Code**. It will not appear in one that is already open.
 7. Say: *"Help me set up my board of advisors."*
 
@@ -34,19 +34,19 @@ Free, MIT licensed, and it runs entirely on your own machine.
 Open a terminal, run `claude`, then type:
 
 ```
-/plugin marketplace add bokar83/advisory-board-plugin
+/plugin marketplace add bokar83/rook
 ```
 
 ```
-/plugin install advisory-board@advisory-board
+/plugin install rook@rook
 ```
 
-`advisory-board@advisory-board` is correct: the plugin's name, then the marketplace it came from. If the install summary says `Run /reload-plugins to activate`, run that.
+`rook@rook` is correct: the plugin's name, then the marketplace it came from. If the install summary says `Run /reload-plugins to activate`, run that.
 
 To try it for one session without installing anything:
 
 ```bash
-claude --plugin-dir /path/to/advisory-board
+claude --plugin-dir /path/to/rook
 ```
 
 </details>

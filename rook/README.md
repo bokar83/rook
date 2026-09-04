@@ -1,4 +1,4 @@
-# ADVISORY_BOARD
+# Rook
 
 Five advisors who pressure-test a decision instead of agreeing with it.
 
@@ -12,10 +12,10 @@ After that, whenever you have a call that is hard to undo, say what you are deci
 
 | | |
 |---|---|
-| `skills/advisory-board/SKILL.md` | The entry point. What the board is, how to set one up, how to run a session, how to correct it. |
-| `skills/advisory-board/references/setup-interview.md` | The setup conversation. Eight questions, six of them just clicking. |
-| `skills/advisory-board/references/the-five-voices.md` | The five mandates, the session itself, and premortem mode. |
-| `skills/advisory-board/references/scaffolding.md` | What gets saved onto your computer and what each file holds. |
+| `skills/rook/SKILL.md` | The entry point. What the board is, how to set one up, how to run a session, how to correct it. |
+| `skills/rook/references/setup-interview.md` | The setup conversation. Eight questions, six of them just clicking. |
+| `skills/rook/references/the-five-voices.md` | The five mandates, the session itself, and premortem mode. |
+| `skills/rook/references/scaffolding.md` | What gets saved onto your computer and what each file holds. |
 
 ## What it touches
 
