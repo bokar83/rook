@@ -17,7 +17,7 @@ Free, MIT licensed, and it runs entirely on your own machine.
 1. Open Claude. **First time using Claude Code?** In a chat, type *"Help me set up Claude Code"* and follow the prompts.
 2. Click **Customize** in the left sidebar, then the **Plugins** tab. Plugins are free add-ons for Claude.
 3. In the top right, click **Add**, then **Add marketplace**.
-4. In the box, type `bokar83/advisory-board-plugin` and click **Sync**. Type it and click Sync. Do not press Enter, and ignore any repository suggestions that pop up.
+4. In the box, type `bokar83/advisory-board-plugin`, then click **Sync**. Do not press Enter, and ignore any repository suggestions that pop up.
 5. **ADVISORY_BOARD** appears in the list. Click **Install**.
 6. Start a **new conversation in Claude Code**. It will not appear in one that is already open.
 7. Say: *"Help me set up my board of advisors."*
@@ -77,13 +77,14 @@ If a session goes too easy on you, say so. That is a setting, and it changes.
 Your own computer, and nothing else.
 
 - It writes your board and every session to a folder on your machine. That is the only thing it saves.
-- **There is no account, no sign-up, no email, no server, and nothing sent anywhere.** No part of this reports back to me. I do not know who installed it and I have no way to find out.
+- **There is no account, no sign-up, no email, no server, and nothing sent anywhere.** No part of this reports back to me. Nothing about you, your board, or anything you decide ever leaves your machine.
+- **The one thing I can see is what GitHub shows any repository owner**, which is a count of how many people cloned or looked at the page, plus the names of anyone who stars it. That is the platform, not this tool. It tells me nothing about who you are or what you brought to your board.
 - It reads nothing outside the folder it writes to.
 - It needs no API key. It runs on the Claude subscription you already have.
 
 ## Author
 
-Built by Boubacar Barry. I help companies put AI to work without the confusion and the overwhelm. The letter you read at setup says where this one came from.
+Built by Boubacar Barry. I help companies put AI to work without the confusion and the overwhelm. This one came out of ten years in global HR leadership for a Fortune 100 company, watching decisions get made in rooms where nobody was paid to disagree with them.
 
 If it catches something before it costs you, send me a note: [linkedin.com/in/boubacarbarry](https://linkedin.com/in/boubacarbarry)
 

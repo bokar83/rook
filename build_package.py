@@ -76,17 +76,26 @@ def check_manifests():
     if src != PLUGIN_DIRNAME:
         fail("marketplace source %r does not point at the plugin dir %r" % (src, PLUGIN_DIRNAME))
 
-    author = entry.get("author") or {}
-    if "linkedin.com" not in (author.get("url") or ""):
-        fail("the marketplace author entry is missing the LinkedIn URL")
+    # Both manifests, not just the marketplace one. A marketplace install copies
+    # only the plugin dir, so the plugin manifest is the one a user ends up with.
+    for label, block in (("marketplace", entry.get("author") or {}),
+                         ("plugin", plg.get("author") or {})):
+        if "linkedin.com" not in (block.get("url") or ""):
+            fail("the %s author entry is missing the LinkedIn URL" % label)
     print("ok   both manifests parse, agree on name and version, and carry the author link")
 
 
 def check_no_leaks():
+    # Fail closed. A missing list used to print SKIP and still exit green, which
+    # meant any other clone got an "all checks passed" with no leak check run at
+    # all. A gate that defaults to pass is the failure it exists to prevent.
     if not os.path.isfile(LEAKTERMS):
-        print("SKIP no .leakterms file next to this script; leak check not run")
-        print("     create it with one term per line before publishing")
-        return
+        if "--no-leak-check" in sys.argv:
+            print("SKIP leak check waived by --no-leak-check")
+            return
+        fail("no .leakterms file next to this script, so the leak check cannot run.\n"
+             "      Create it with one term per line, or pass --no-leak-check if you\n"
+             "      genuinely do not have the list. It is gitignored on purpose.")
     terms = [t.strip().lower() for t in open(LEAKTERMS, encoding="utf-8")
              if t.strip() and not t.startswith("#")]
     if not terms:
