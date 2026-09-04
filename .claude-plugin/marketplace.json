@@ -1,0 +1,33 @@
+{
+  "name": "advisory-board",
+  "owner": {
+    "name": "Boubacar Barry",
+    "url": "https://github.com/bokar83"
+  },
+  "description": "A board of advisors you set up once, then bring your hardest decisions to.",
+  "plugins": [
+    {
+      "name": "advisory-board",
+      "displayName": "ADVISORY_BOARD",
+      "source": "./advisory-board",
+      "description": "Five advisors who pressure-test a decision instead of agreeing with it. A short setup interview writes your own board onto your computer, and from then on you bring it what you are deciding and it tells you what is wrong with it, what you are really optimizing for, how it reads to somebody outside your industry, and what has to happen Monday morning. It never makes the call for you.",
+      "version": "1.0.0",
+      "author": {
+        "name": "Boubacar Barry",
+        "url": "https://linkedin.com/in/boubacarbarry"
+      },
+      "homepage": "https://github.com/bokar83/advisory-board-plugin",
+      "repository": "https://github.com/bokar83/advisory-board-plugin",
+      "license": "MIT",
+      "category": "productivity",
+      "keywords": [
+        "decision making",
+        "pressure test",
+        "premortem",
+        "strategy",
+        "advisors",
+        "red team"
+      ]
+    }
+  ]
+}
