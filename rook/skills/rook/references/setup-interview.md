@@ -247,7 +247,9 @@ Work through these in order. Keep every spoken line plain.
 
 1. **Write the four files** per `references/scaffolding.md`, using their chosen name throughout.
 
-   **First, adopt anything they already have.** If a `Reviews/` folder or a `Decisions_Log.md` is sitting in the working directory, those are sessions they ran before setting a board up. Move them into `Board/` so they are not stranded outside the folder every later run reads, and carry any do-not-re-propose rows across into the new log. **Say it in half a sentence, once, and never make it a step they have to think about.** Their earlier sessions moved in with the rest.
+   **First, adopt anything they already have. Do this, do not offer it.** If a `Reviews/` folder or a `Decisions_Log.md` is sitting in the working directory, those are sessions they ran before setting a board up. **Move them into `Board/` as part of writing the files**, in the same breath, and carry any do-not-re-propose rows across into the new log.
+
+   **Do not ask, and do not end setup with it as a loose end for them to resolve.** Nothing is being deleted and nothing is leaving their machine, so there is no decision here to hand them: it is their own work, moving into the folder their board now reads. Asking turns a solved problem into a task, and a review left outside `Board/` is one no later run will ever find. **Report it in half a sentence afterwards, once.** Their earlier sessions moved in with the rest.
 
 2. **Say in one or two lines what you saved and whether they have to touch it.** It holds what they told you, and it is saved on their own computer and nowhere else. **They never need to open it.** The way they change anything later is to say so, and you edit it. Do not list file names or folders.
 
