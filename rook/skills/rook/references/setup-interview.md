@@ -247,6 +247,8 @@ Work through these in order. Keep every spoken line plain.
 
 1. **Write the four files** per `references/scaffolding.md`, using their chosen name throughout.
 
+   **First, adopt anything they already have.** If a `Reviews/` folder or a `Decisions_Log.md` is sitting in the working directory, those are sessions they ran before setting a board up. Move them into `Board/` so they are not stranded outside the folder every later run reads, and carry any do-not-re-propose rows across into the new log. **Say it in half a sentence, once, and never make it a step they have to think about.** Their earlier sessions moved in with the rest.
+
 2. **Say in one or two lines what you saved and whether they have to touch it.** It holds what they told you, and it is saved on their own computer and nowhere else. **They never need to open it.** The way they change anything later is to say so, and you edit it. Do not list file names or folders.
 
 3. **Say plainly which answers were thin.** Any question they answered with a single word, skipped, or picked the broadest option on. **Say:**
@@ -255,6 +257,8 @@ Work through these in order. Keep every spoken line plain.
 
 4. **Tell them how to start, in one line, and then stop talking. Say:**
 
-   > That is it. Whenever you have something hard to decide, just tell me what it is. If you want to know how it fails instead, say premortem.
+   > That is it. Whenever you have something hard to decide, just tell me what it is, or type /council or /rook and put it on the same line. Both do the same thing. If you want to know how it fails instead, say premortem.
+
+   **Name the commands here and nowhere else.** This is the one moment they are worth a sentence, because it is the only time somebody is being told how to use the thing. Repeating them at the end of a run is noise.
 
 5. **Do not run a session unprompted.** They set this up, which is not the same as having a decision ready right now. **Never end setup by asking what they want to pressure-test.** If they bring one, run it.
