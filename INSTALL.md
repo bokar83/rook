@@ -9,12 +9,13 @@ This repository is private. You need GitHub access to `bokar83/rook` before eith
 1. Open the Claude desktop app. First time using Claude Code? In a chat, type *"Help me set up Claude Code"* and follow the prompts.
 2. Click **Customize** in the left sidebar, then the **Plugins** tab.
 3. In the top right, click **Add**, then **Add marketplace**.
-4. In the box, type `bokar83/rook`, then click **Sync**. Do not press Enter, and ignore any repository suggestions that pop up.
-5. **Rook** appears in the list. Click **Install**.
-6. Start a **new conversation in Claude Code**. It will not appear in one that is already open.
-7. Say: *"Help me set up my board of advisors."*
+4. Type `bokar83/rook` into the box, then click the **rook** suggestion that appears underneath it. Do not press Enter. That box is a repository picker, not a plain text field, so the name has to be picked before anything happens.
+5. Click **Sync**.
+6. **Rook** appears in the list. Click **Install**.
+7. Start a **new conversation in Claude Code**. It will not appear in one that is already open.
+8. Say: *"Help me set up my board of advisors."*
 
-Nothing happening? Close Claude, open it again, and repeat step 6.
+Nothing happening? Close Claude, open it again, and repeat step 7.
 
 To update later: open the same Plugins screen and click **Sync**.
 
