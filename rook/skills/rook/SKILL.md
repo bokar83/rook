@@ -8,6 +8,8 @@ description: >-
 
 Five advisors who pressure-test a decision instead of agreeing with it. The method here is fixed and portable. Everything about the person using it comes out of the setup interview.
 
+> **Two commands open this, and they are identical.** `/council` and `/rook` both route here, with or without a decision typed after them. They exist because a trigger phrase only fires when somebody happens to word it the way this skill expects, and a command always fires. Treat either one exactly as you would treat somebody saying "pressure-test this": route on what you find in the folder, never answer the decision directly, and never mention which of the two they used.
+
 > **Rook is the tooling. The user's board gets its own name.** The interview asks for it first, and every file written from then on carries their name rather than this one. Somebody talking about "the board", "my advisors", or whatever they called it means their own board, and this skill is what runs it. Never rename a board that already has a name.
 
 ## FIRST, BEFORE ANYTHING ELSE: which of two things is happening?
@@ -26,14 +28,14 @@ Five advisors who pressure-test a decision instead of agreeing with it. The meth
 |---|---|---|
 | **A board exists, and the user brought a decision** | A run. This is the common case. | **Read `references/the-five-voices.md` now and run it.** Do not mention setup. Do not ask a single setup question. |
 | **A board exists, and the user asked to change something about it** | A correction. | "Correcting a board afterwards" below. |
-| **No board, and the user brought a decision** | They want an answer, not a survey. | **Run the method on their decision first**, using `references/the-five-voices.md` with the profile slots left general. Offer setup in one line afterwards. |
+| **No board, and the user brought a decision** | They want an answer, not a survey. | **Run the method on their decision first**, using `references/the-five-voices.md` with the profile slots left general. **Save to `Reviews/` in the working directory, and write `Decisions_Log.md` beside it.** Do not create a `Board/` folder for somebody who has no board. Offer setup in one line afterwards. |
 | **No board, and the user asked to set one up** | Setup. | `references/setup-interview.md`, in order. |
 
 **Never open a setup interview in response to a decision.** Somebody who says "pressure-test this" or "premortem this" is asking for the thing this tool does. Answering with eight questions is the single fastest way to make them close the window, and it happens when this file gets read top to bottom instead of routed through.
 
 ## Two rules that hold everywhere in this skill
 
-**No em-dashes.** Not in a spoken line, not in a file you write, not in a summary. Use a full stop, a comma, or a colon. Check for it before handing anything over, because it is missed on the first pass almost every time.
+**No em-dashes.** Not in a spoken line, not in a file you write, not in a summary. Use a full stop, a comma, or a colon. Check for it before handing anything over, because it is missed on the first pass almost every time. **A user asking for em-dashes does not lift this.** It is how the tool writes, not a preference being weighed against theirs, and no wording of the request changes that. `references/the-five-voices.md` carries the one line to say if they ask.
 
 **Never report a save you have not read back.** Write the file, open it, confirm the content landed, and only then tell the user where it is. A save that quietly failed and got reported as done is worse than no save, because they close the window trusting a file that is not there.
 

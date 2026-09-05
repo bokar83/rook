@@ -20,7 +20,7 @@ Free, MIT licensed, and it runs entirely on your own machine.
 4. In the box, type `bokar83/rook`, then click **Sync**. Do not press Enter, and ignore any repository suggestions that pop up.
 5. **Rook** appears in the list. Click **Install**.
 6. Start a **new conversation in Claude Code**. It will not appear in one that is already open.
-7. Say: *"Help me set up my board of advisors."*
+7. Say: *"Help me set up my board of advisors."* Or type **`/rook`**, which does the same thing.
 
 **Nothing happening?** Close Claude, open it again, and try step 6.
 
@@ -55,6 +55,14 @@ claude --plugin-dir /path/to/rook
 
 Say what you are deciding. That is the whole interface.
 
+You can also call it directly. Type **`/council`** or **`/rook`** in any conversation and it opens, whether or not you word anything the way it expects. Both do exactly the same thing, so use whichever you remember. Put the decision on the same line if you have one ready:
+
+```
+/council should I take the smaller contract to keep the month full
+```
+
+On its own, `/rook` sets your board up if you do not have one yet, and asks what you are deciding if you do.
+
 > *"I want to raise my rates by 40% and I am about to tell three clients."*
 >
 > *"Should I take on a co-founder for this, or hire?"*
@@ -80,6 +88,7 @@ Your own computer, and nothing else.
 - **There is no account, no sign-up, no email, no server, and nothing sent anywhere.** No part of this reports back to me. Nothing about you, your board, or anything you decide ever leaves your machine.
 - **The one thing I can see is what GitHub shows any repository owner**, which is a count of how many people cloned or looked at the page, plus the names of anyone who stars it. That is the platform, not this tool. It tells me nothing about who you are or what you brought to your board.
 - It reads nothing outside the folder it writes to.
+- **Every saved session ends with an invisible version tag**, written as an empty HTML comment on the last line. It records which version of this tool wrote the file, it renders as nothing, and it never leaves your machine. Delete it if you like. Nothing breaks.
 - It needs no API key. It runs on the Claude subscription you already have.
 
 ## Author
