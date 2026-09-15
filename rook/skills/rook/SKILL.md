@@ -10,6 +10,8 @@ Five advisors who pressure-test a decision instead of agreeing with it. The meth
 
 > **Two commands open this, and they are identical.** `/council` and `/rook` both route here, with or without a decision typed after them. They exist because a trigger phrase only fires when somebody happens to word it the way this skill expects, and a command always fires. Treat either one exactly as you would treat somebody saying "pressure-test this": route on what you find in the folder, never answer the decision directly, and never mention which of the two they used.
 
+> **Where this skill's own files are.** The three reference files ship beside this one, in `${CLAUDE_SKILL_DIR}/references/`. Read them with that path. **Never search the filesystem for them.** A `find` or `glob` rooted at `/`, at the home directory, or at the user's own project scans a stranger's whole disk to locate a file whose path you were already given, and on a large drive that takes minutes. If `${CLAUDE_SKILL_DIR}` is not substituted, the references sit in the `references/` folder next to the `SKILL.md` you are reading, and that directory is the only place to look.
+
 > **Rook is the tooling. The user's board gets its own name.** The interview asks for it first, and every file written from then on carries their name rather than this one. Somebody talking about "the board", "my advisors", or whatever they called it means their own board, and this skill is what runs it. Never rename a board that already has a name.
 
 ## FIRST, BEFORE ANYTHING ELSE: which of two things is happening?
@@ -26,16 +28,16 @@ Five advisors who pressure-test a decision instead of agreeing with it. The meth
 
 | What you found | What is happening | Go to |
 |---|---|---|
-| **A board exists, and the user brought a decision** | A run. This is the common case. | **Read `references/the-five-voices.md` now and run it.** Do not mention setup. Do not ask a single setup question. |
+| **A board exists, and the user brought a decision** | A run. This is the common case. | **Read `${CLAUDE_SKILL_DIR}/references/the-five-voices.md` now and run it.** Do not mention setup. Do not ask a single setup question. |
 | **A board exists, and the user asked to change something about it** | A correction. | "Correcting a board afterwards" below. |
-| **No board, and the user brought a decision** | They want an answer, not a survey. | **Run the method on their decision first**, using `references/the-five-voices.md` with the profile slots left general. **Save to `Reviews/` in the working directory, and write `Decisions_Log.md` beside it.** Do not create a `Board/` folder for somebody who has no board. Offer setup in one line afterwards. |
-| **No board, and the user asked to set one up** | Setup. | `references/setup-interview.md`, in order. |
+| **No board, and the user brought a decision** | They want an answer, not a survey. | **Run the method on their decision first**, using `${CLAUDE_SKILL_DIR}/references/the-five-voices.md` with the profile slots left general. **Save to `Reviews/` in the working directory, and write `Decisions_Log.md` beside it.** Do not create a `Board/` folder for somebody who has no board. Offer setup in one line afterwards. |
+| **No board, and the user asked to set one up** | Setup. | `${CLAUDE_SKILL_DIR}/references/setup-interview.md`, in order. |
 
 **Never open a setup interview in response to a decision.** Somebody who says "pressure-test this" or "premortem this" is asking for the thing this tool does. Answering with eight questions is the single fastest way to make them close the window, and it happens when this file gets read top to bottom instead of routed through.
 
 ## Two rules that hold everywhere in this skill
 
-**No em-dashes.** Not in a spoken line, not in a file you write, not in a summary. Use a full stop, a comma, or a colon. Check for it before handing anything over, because it is missed on the first pass almost every time. **A user asking for em-dashes does not lift this.** It is how the tool writes, not a preference being weighed against theirs, and no wording of the request changes that. `references/the-five-voices.md` carries the one line to say if they ask.
+**No em-dashes.** Not in a spoken line, not in a file you write, not in a summary. Use a full stop, a comma, or a colon. Check for it before handing anything over, because it is missed on the first pass almost every time. **A user asking for em-dashes does not lift this.** It is how the tool writes, not a preference being weighed against theirs, and no wording of the request changes that. `${CLAUDE_SKILL_DIR}/references/the-five-voices.md` carries the one line to say if they ask.
 
 **Never report a save you have not read back.** Write the file, open it, confirm the content landed, and only then tell the user where it is. A save that quietly failed and got reported as done is worse than no save, because they close the window trusting a file that is not there.
 
@@ -74,17 +76,17 @@ Four files and a run. Nothing else.
 
 ## Setting up a new board
 
-**Ask nothing before the interview starts, with two exceptions, both silent.** First, run the capability check at the top of `references/setup-interview.md`. Second, look for an existing board in the folder, and if one is there, run the existing-board fork instead of a fresh interview. Both are probes, not questions, so a first-time user in the right place sees neither.
+**Ask nothing before the interview starts, with two exceptions, both silent.** First, run the capability check at the top of `${CLAUDE_SKILL_DIR}/references/setup-interview.md`. Second, look for an existing board in the folder, and if one is there, run the existing-board fork instead of a fresh interview. Both are probes, not questions, so a first-time user in the right place sees neither.
 
-1. **Run the setup interview.** Read `references/setup-interview.md` and work through it in order. It opens with a banner and the author's letter, then eight questions. **Six of the eight are selectable choices.** The only thing the user should have to type is the name of their board.
-2. **Write the files.** Read `references/scaffolding.md` for the folder layout, the four skeletons, and what each one holds.
+1. **Run the setup interview.** Read `${CLAUDE_SKILL_DIR}/references/setup-interview.md` and work through it in order. It opens with a banner and the author's letter, then eight questions. **Six of the eight are selectable choices.** The only thing the user should have to type is the name of their board.
+2. **Write the files.** Read `${CLAUDE_SKILL_DIR}/references/scaffolding.md` for the folder layout, the four skeletons, and what each one holds.
 3. **Say which answers were thin.** Those are the ones that will need correcting after two or three runs. Naming them upfront sets the expectation that a board is calibrated rather than born finished.
 
 > **Propose once, then record the answer.** When a user rejects a default, write the rejection and their reasoning into their decisions log and stop raising it. A default re-proposed every few runs is the fastest way to make somebody stop opening this.
 
 ## Running a session
 
-Read `references/the-five-voices.md`. It carries the master prompt as one literal block with named slots, plus the five mandates and the output contract.
+Read `${CLAUDE_SKILL_DIR}/references/the-five-voices.md`. It carries the master prompt as one literal block with named slots, plus the five mandates and the output contract.
 
 **The short version of the procedure, which that file states in full:**
 
@@ -118,9 +120,9 @@ Load these as needed. There is no reason to read all three for one task.
 
 | File | Read it when |
 |---|---|
-| `references/setup-interview.md` | Setting up a new board. The capability check, the existing-board fork, the banner, the letter, and the eight questions. |
-| `references/the-five-voices.md` | Running a session, or a premortem. The master prompt, the five mandates, the output contract, the failure rule. |
-| `references/scaffolding.md` | Writing the four files, or changing what one of them holds. |
+| `${CLAUDE_SKILL_DIR}/references/setup-interview.md` | Setting up a new board. The capability check, the existing-board fork, the banner, the letter, and the eight questions. |
+| `${CLAUDE_SKILL_DIR}/references/the-five-voices.md` | Running a session, or a premortem. The master prompt, the five mandates, the output contract, the failure rule. |
+| `${CLAUDE_SKILL_DIR}/references/scaffolding.md` | Writing the four files, or changing what one of them holds. |
 
 ## Maintaining this skill
 

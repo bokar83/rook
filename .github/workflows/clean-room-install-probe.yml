@@ -1,21 +1,20 @@
-# Clean-room install probe — the MECHANICAL half of install testing.
+# Clean-room install probe -- the MECHANICAL half of install testing.
 #
-# PRD decision D-9 (agentsHQ: docs/prds/sahara-proving-grounds/PRD.md) splits the
-# work: CI owns the mechanical half (does the install script run, do the files
-# land, does the plugin appear in a list), the Sahara Proving Grounds Hyper-V VM
-# owns the interactive half (OAuth login, a human looking at the TUI).
+# Install testing splits in two. CI owns the mechanical half (does the install
+# run, do the files land, does the plugin appear in a list). A local virtual
+# machine owns the interactive half (OAuth login, a human looking at the TUI).
 #
 # THIS IS A PROBE, NOT A TEST. It asserts nothing and it cannot fail the build.
 # Its only job is to record what a GitHub-hosted windows-latest runner actually
 # does, so real assertions can be written against observed behaviour instead of
 # guessed behaviour. Nobody has verified that `claude plugin list` returns
-# anything without an OAuth token, and CI cannot log in — that is the whole basis
-# of D-9. Assertions get added in a second pass, after a human reads one run.
+# anything without an OAuth token, and CI cannot log in -- that is the whole basis
+# of this split. Assertions get added in a second pass, after a human reads one run.
 #
 # WHAT A GREEN CHECK HERE WILL NOT MEAN (say it here so nobody reads it wrong):
 # it will not mean the plugin's slash-command routing works. Routing under
 # COMPETING skills is the bug that motivated this whole build, and an empty
-# machine with one plugin cannot see it. That belongs to Sahara, or to a future
+# machine with one plugin cannot see it. That belongs to the local VM, or to a future
 # matrix leg that installs competing plugins first.
 #
 # COST: windows-latest bills at a 2x multiplier. GitHub Free gives 2,000 Actions

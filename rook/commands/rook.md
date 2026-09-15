@@ -4,7 +4,7 @@ description: Put a decision through your board of advisors, or set the board up 
 argument-hint: [the decision you are weighing, or leave empty]
 ---
 
-Use the Rook skill (`skills/rook/SKILL.md` in this plugin) and follow it from the top, including its routing step.
+Use the Rook skill and follow it from the top, including its routing step. It is at `${CLAUDE_PLUGIN_ROOT}/skills/rook/SKILL.md`, and its reference files are in `${CLAUDE_PLUGIN_ROOT}/skills/rook/references/`. **Never search the filesystem for them.** A `find` or `glob` rooted at `/` or at the home directory scans a stranger's whole disk to locate a file whose path you were already given.
 
 The user typed a command rather than a sentence, so treat this as a deliberate request for the board and never answer the decision directly.
 

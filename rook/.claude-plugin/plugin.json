@@ -1,7 +1,7 @@
 {
   "name": "rook",
   "description": "Five advisors who pressure-test a decision instead of agreeing with it. A short setup interview writes your own board onto your computer, and from then on you bring it what you are deciding and it tells you what is wrong with it, what you are really optimizing for, how it reads to somebody outside your industry, and what has to happen Monday morning. It never makes the call for you. You name your own board during setup.",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "author": {
     "name": "Boubacar Barry",
     "url": "https://linkedin.com/in/boubacarbarry"
