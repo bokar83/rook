@@ -146,7 +146,12 @@ jobs:
           Probe 'HELP'         'claude --help'
           # The load-bearing unknown: does this work with no OAuth token?
           Probe 'PLUGIN_LIST'  'claude plugin list'
-          Probe 'MP_ADD'       'claude plugin marketplace add .'
+          # Probe run 2 finding: `add .` is rejected -- "Invalid marketplace source
+          # format. Try: owner/repo, https://..., or ./path". A bare dot is not a
+          # accepted path form. Use ./ explicitly.
+          Probe 'MP_ADD'       'claude plugin marketplace add ./'
+          Probe 'MP_LIST'      'claude plugin marketplace list'
+          Probe 'PLUGIN_INST'  'claude plugin install rook@rook'
           Probe 'PLUGIN_LIST2' 'claude plugin list'
 
       - name: Write the job summary
