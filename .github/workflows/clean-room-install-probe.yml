@@ -100,6 +100,24 @@ jobs:
           & $out *>&1 | Tee-Object -FilePath (Join-Path $env:RUNNER_TEMP 'install.log')
           Write-Host "INSTALL_EXIT=$LASTEXITCODE"
 
+          # FINDING, probe run 1 (2026-09-15, run 35028479805): the installer
+          # SUCCEEDS (v2.1.273, lands at ~\.local\bin\claude.exe) but does NOT put
+          # claude on PATH. It prints "Native installation exists but
+          # C:\Users\<user>\.local\bin is not in your PATH" and tells the user to
+          # edit System Properties by hand and restart their terminal.
+          #
+          # That is a real stranger-facing defect, recorded here rather than
+          # papered over. We add the path below ONLY so the probe can get far
+          # enough to answer the next question. Adding it here does not fix it
+          # for a stranger.
+          $bin = Join-Path $env:USERPROFILE '.local\bin'
+          if (Test-Path $bin) {
+            Write-Host "PATH_WORKAROUND_APPLIED=$bin"
+            $bin | Out-File -FilePath $env:GITHUB_PATH -Append -Encoding utf8
+          } else {
+            Write-Host "PATH_WORKAROUND_APPLIED=none ($bin does not exist)"
+          }
+
       - name: Probe the CLI (records, never asserts)
         shell: pwsh
         continue-on-error: true
