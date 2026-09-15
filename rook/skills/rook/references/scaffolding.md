@@ -68,7 +68,7 @@ here came from the setup conversation. To change any of it, just say so.
 {{Q8 answer}}
 
 ## Built with
-A board of advisors for Claude Code by Boubacar Barry.
+A board of advisors for Claude Code by Boubacar.
 https://linkedin.com/in/boubacarbarry
 MIT licensed.
 ```

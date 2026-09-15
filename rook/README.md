@@ -23,6 +23,6 @@ Your own computer, and nothing else. It writes your board and every session to o
 
 ## Author
 
-Built by Boubacar Barry. [linkedin.com/in/boubacarbarry](https://linkedin.com/in/boubacarbarry)
+Built by Boubacar. [linkedin.com/in/boubacarbarry](https://linkedin.com/in/boubacarbarry)
 
 MIT licensed. See [LICENSE](LICENSE).

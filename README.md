@@ -93,7 +93,7 @@ Your own computer, and nothing else.
 
 ## Author
 
-Built by Boubacar Barry. I help companies put AI to work without the confusion and the overwhelm. This one came out of ten years in global HR leadership for a Fortune 100 company, watching decisions get made in rooms where nobody was paid to disagree with them.
+Built by Boubacar. I help companies put AI to work without the confusion and the overwhelm. This one came out of ten years inside the HR function of a Fortune 100 company, watching decisions get made in rooms where nobody was paid to disagree with them.
 
 If it catches something before it costs you, send me a note: [linkedin.com/in/boubacarbarry](https://linkedin.com/in/boubacarbarry)
 
