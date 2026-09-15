@@ -31,6 +31,17 @@ Open a terminal, run `claude`, then:
 
 `rook@rook` is correct: the plugin's name, then the marketplace it came from. If the install summary says `Run /reload-plugins to activate`, run that.
 
+### If the terminal says `claude` is not recognized
+
+This means Claude Code itself installed, but your terminal does not know where to find it yet — a one-time hiccup, not a broken install. Copy the two lines below into the **same terminal window**, press Enter after each, then close that window and open a new one:
+
+```powershell
+$currentPath = [Environment]::GetEnvironmentVariable('PATH', 'User')
+[Environment]::SetEnvironmentVariable('PATH', "$currentPath;$env:USERPROFILE\.local\bin", 'User')
+```
+
+In the new window, type `claude --version` to confirm it worked, then pick up where you left off above. (On Mac, this almost never happens — if it does, closing and reopening the terminal is usually enough on its own.)
+
 ## Method 2: Direct from GitHub (backup, if Method 1 does not show Rook)
 
 Skip straight here if the marketplace step above will not sync, will not list the plugin, or the Install button does nothing after two tries.
@@ -45,6 +56,8 @@ Skip straight here if the marketplace step above will not sync, will not list th
 ```bash
 claude --plugin-dir "/path/to/rook/rook"
 ```
+
+If the terminal says `claude` is not recognized, see [the fix above](#if-the-terminal-says-claude-is-not-recognized), then come back to this step.
 
 5. In that session, say: *"Help me set up my board of advisors."*
 
