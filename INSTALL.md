@@ -2,8 +2,6 @@
 
 Two ways in. Use the first one. The second is a backup for the day the first one does not cooperate (Anthropic has changed plugin marketplace behavior before without warning, so this guide keeps a working fallback at the bottom on purpose).
 
-This repository is private. You need GitHub access to `bokar83/rook` before either method below will work.
-
 ## Method 1: Claude Plugin Marketplace (use this first)
 
 1. Open the Claude desktop app. First time using Claude Code? In a chat, type *"Help me set up Claude Code"* and follow the prompts.
@@ -37,7 +35,7 @@ Open a terminal, run `claude`, then:
 
 Skip straight here if the marketplace step above will not sync, will not list the plugin, or the Install button does nothing after two tries.
 
-1. Go to `https://github.com/bokar83/rook` (sign in first, the repo is private).
+1. Go to `https://github.com/bokar83/rook`.
 2. Get a local copy, either way works:
    - **Clone:** `git clone git@github.com:bokar83/rook.git` (or the HTTPS URL if you have not set up an SSH key with GitHub)
    - **Download ZIP:** click the green **Code** button, then **Download ZIP**, then extract it
