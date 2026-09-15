@@ -1,0 +1,174 @@
+# Clean-room install probe — the MECHANICAL half of install testing.
+#
+# PRD decision D-9 (agentsHQ: docs/prds/sahara-proving-grounds/PRD.md) splits the
+# work: CI owns the mechanical half (does the install script run, do the files
+# land, does the plugin appear in a list), the Sahara Proving Grounds Hyper-V VM
+# owns the interactive half (OAuth login, a human looking at the TUI).
+#
+# THIS IS A PROBE, NOT A TEST. It asserts nothing and it cannot fail the build.
+# Its only job is to record what a GitHub-hosted windows-latest runner actually
+# does, so real assertions can be written against observed behaviour instead of
+# guessed behaviour. Nobody has verified that `claude plugin list` returns
+# anything without an OAuth token, and CI cannot log in — that is the whole basis
+# of D-9. Assertions get added in a second pass, after a human reads one run.
+#
+# WHAT A GREEN CHECK HERE WILL NOT MEAN (say it here so nobody reads it wrong):
+# it will not mean the plugin's slash-command routing works. Routing under
+# COMPETING skills is the bug that motivated this whole build, and an empty
+# machine with one plugin cannot see it. That belongs to Sahara, or to a future
+# matrix leg that installs competing plugins first.
+#
+# COST: windows-latest bills at a 2x multiplier. GitHub Free gives 2,000 Actions
+# minutes/month on PRIVATE repos, so ~1,000 real Windows-minutes. PUBLIC repos
+# are unlimited and free. This repo is currently PRIVATE. Hence: manual dispatch
+# only, no schedule, and a hard 15-minute timeout so a hung run cannot quietly
+# eat the month.
+
+name: Clean-room install probe
+
+on:
+  workflow_dispatch:
+    inputs:
+      reason:
+        description: "Why this run (goes in the job summary and the runs.md row)"
+        required: false
+        default: "probe"
+
+# No `schedule:` and no `push:` on purpose. A nightly cron on a 2x-billed runner
+# is the expensive mistake this design exists to avoid. Add a path-filtered
+# `push:` only after the probe has told us what the assertions should be.
+
+permissions:
+  contents: read
+
+concurrency:
+  group: clean-room-probe-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  probe:
+    runs-on: windows-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout plugin source
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+
+      - name: Confirm the runner really is clean
+        shell: pwsh
+        run: |
+          # GitHub gives a fresh VM per run, so this should always pass. It is
+          # here as the guard that survives a future self-hosted runner, where
+          # it would not be free.
+          $claudeHome = Join-Path $env:USERPROFILE '.claude'
+          if (Test-Path $claudeHome) {
+            Write-Host "NOT CLEAN: $claudeHome already exists"
+            Get-ChildItem $claudeHome -Force | Format-Table Name, Length
+          } else {
+            Write-Host "CLEAN: no $claudeHome on this runner"
+          }
+
+      - name: Fetch the public install script and record its hash
+        shell: pwsh
+        run: |
+          # Council finding: piping a remote script straight into a shell means an
+          # upstream change is invisible. Fetch first, hash it, THEN run it, so a
+          # silent change shows up as a different hash in the log.
+          $url = 'https://claude.ai/install.ps1'
+          $out = Join-Path $env:RUNNER_TEMP 'install.ps1'
+          try {
+            Invoke-WebRequest -Uri $url -OutFile $out -UseBasicParsing -ErrorAction Stop
+            $h = (Get-FileHash -Path $out -Algorithm SHA256).Hash
+            Write-Host "FETCH_EXIT=0"
+            Write-Host "INSTALL_SCRIPT_SHA256=$h"
+            Write-Host "INSTALL_SCRIPT_BYTES=$((Get-Item $out).Length)"
+            "INSTALL_SHA=$h" | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding utf8
+          } catch {
+            Write-Host "FETCH_EXIT=1"
+            Write-Host "FETCH_ERROR=$($_.Exception.Message)"
+            "INSTALL_SHA=FETCH-FAILED" | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding utf8
+          }
+
+      - name: Install Claude Code by the documented public path
+        shell: pwsh
+        continue-on-error: true
+        run: |
+          # PRD D-4: the public documented installer, NOT the npm path the host
+          # happens to use. A stranger follows the documented path.
+          $out = Join-Path $env:RUNNER_TEMP 'install.ps1'
+          if (-not (Test-Path $out)) { Write-Host "INSTALL_EXIT=SKIPPED-NO-SCRIPT"; exit 0 }
+          & $out *>&1 | Tee-Object -FilePath (Join-Path $env:RUNNER_TEMP 'install.log')
+          Write-Host "INSTALL_EXIT=$LASTEXITCODE"
+
+      - name: Probe the CLI (records, never asserts)
+        shell: pwsh
+        continue-on-error: true
+        run: |
+          # Every command below is recorded with its exit code and left to speak
+          # for itself. This is the step whose output decides what the real
+          # assertions become.
+          $log = Join-Path $env:RUNNER_TEMP 'probe.log'
+
+          function Probe([string]$Label, [string]$Cmd) {
+            Write-Host ""
+            Write-Host "=== $Label : $Cmd ==="
+            $o = (cmd /c "$Cmd 2>&1")
+            $code = $LASTEXITCODE
+            $o | Out-String | Write-Host
+            Write-Host "--- ${Label}_EXIT=$code"
+            "$Label|$code|$($o -join ' ')" | Out-File -FilePath $log -Append -Encoding utf8
+          }
+
+          # Does the binary exist at all, and on PATH?
+          $found = Get-Command claude -ErrorAction SilentlyContinue
+          Write-Host "CLAUDE_ON_PATH=$([bool]$found)"
+          if ($found) { Write-Host "CLAUDE_PATH=$($found.Source)" }
+
+          Probe 'VERSION'      'claude --version'
+          Probe 'HELP'         'claude --help'
+          # The load-bearing unknown: does this work with no OAuth token?
+          Probe 'PLUGIN_LIST'  'claude plugin list'
+          Probe 'MP_ADD'       'claude plugin marketplace add .'
+          Probe 'PLUGIN_LIST2' 'claude plugin list'
+
+      - name: Write the job summary
+        if: always()
+        shell: pwsh
+        run: |
+          $s = @()
+          $s += "## Clean-room install probe"
+          $s += ""
+          $s += "Reason: ``${{ inputs.reason }}``"
+          $s += "Runner: ``windows-latest`` (fresh VM, billed at 2x)"
+          $s += "Install script SHA256: ``$env:INSTALL_SHA``"
+          $s += ""
+          $s += "### This is a probe. It asserts nothing."
+          $s += ""
+          $s += "A green check here does **not** mean the plugin works. It means the"
+          $s += "job ran to the end. Read the ``Probe the CLI`` step's exit codes."
+          $s += ""
+          $s += "The outcome vocabulary the real test will use, once written:"
+          $s += ""
+          $s += "| Outcome | Means |"
+          $s += "|---|---|"
+          $s += "| PASS | ``claude`` ran AND the plugin appeared in the list |"
+          $s += "| FAIL | ``claude`` ran AND the plugin was genuinely absent |"
+          $s += "| INCONCLUSIVE | ``claude`` itself could not run (auth wall, install failure) |"
+          $s += ""
+          $s += "INCONCLUSIVE is kept distinct from FAIL on purpose. 'I could not tell'"
+          $s += "reported as 'it is broken' is a signal that lies."
+          $s += ""
+          $s += "**Out of scope, permanently:** slash-command routing under COMPETING"
+          $s += "skills. That is the bug that motivated the build and an empty machine"
+          $s += "cannot see it. It belongs to the interactive rig, or to a matrix leg"
+          $s += "that installs competing plugins first."
+          $s -join "`n" | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append -Encoding utf8
+
+      - name: Upload probe logs
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: clean-room-probe-logs
+          path: ${{ runner.temp }}/*.log
+          retention-days: 7
+          if-no-files-found: warn
